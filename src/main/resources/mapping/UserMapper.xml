@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.example.springbootdemo.mapper.UserMapper">
+
+    <resultMap id = "result" type = "com.example.springbootdemo.pojo.User">
+        <result property = "user_id" column = "user_id" jdbcType="INTEGER"/>
+        <result property = "user_name" column = "user_name" jdbcType="VARCHAR"/>
+        <result property = "user_phone" column = "user_phone" jdbcType="VARCHAR"/>
+        <result property = "user_adress" column = "user_adress" jdbcType="VARCHAR"/>
+        <result property = "user_number" column = "user_number" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id = "selectAll" resultMap = "result">
+        SELECT * FROM user;
+    </select>
+    <select id="findUserById" resultMap="result">
+        select * from user where user_id=#{user_id}
+    </select>
+</mapper>
