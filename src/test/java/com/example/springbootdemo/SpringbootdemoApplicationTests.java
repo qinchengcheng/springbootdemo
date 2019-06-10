@@ -1,5 +1,6 @@
 package com.example.springbootdemo;
 
+import com.example.springbootdemo.service.Receiver;
 import com.example.springbootdemo.service.Sender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,12 +14,17 @@ public class SpringbootdemoApplicationTests {
     @Autowired
     Sender sender;
 
+    @Autowired
+    Receiver receiver;
     @Test
     public void contextLoads() {
     }
 
     @Test
     public void mqTest() {
-        sender.send();
+        for(int i=0;i<1000;i++){
+            sender.send();
+            receiver.process("hello");
+        }
     }
 }

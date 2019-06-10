@@ -3,7 +3,8 @@ package com.example.springbootdemo.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.management.Query;
+import org.springframework.amqp.core.Queue;
+
 
 /**
  * @author qin
@@ -13,7 +14,7 @@ import javax.management.Query;
 @Configuration
 public class RabbitConfig {
     @Bean
-    public Query helloQueue(){
-        return new Query();
+    public Queue helloQueue(){
+        return new Queue("hello",true);
     }
 }
