@@ -8,6 +8,15 @@ spring:
      username: root
      password: 123456
      driver-class-name: com.mysql.jdbc.Driver
+  application:
+    name: rabbitmq-hello
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: qin
+    password: 123456
+    publisher-confirms: true
+    virtual-host: /
 mybatis:
   mapper-locations: classpath:**/mapping/*.xml
   type-aliases-package: com.example.springbootdemo.pojo
