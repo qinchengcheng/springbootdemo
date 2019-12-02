@@ -16,15 +16,34 @@ public class SpringbootdemoApplicationTests {
 
     @Autowired
     Receiver receiver;
+
     @Test
     public void contextLoads() {
     }
 
     @Test
     public void mqTest() {
-        for(int i=0;i<1000;i++){
+        for (int i = 0; i < 1000; i++) {
             sender.send();
             receiver.process("hello");
         }
+    }
+
+    @Test
+    public void mqTest2() {
+        for (int i = 0; i < 100000; i++) {
+            final int a = i;
+            com.njq.nongfadai.service.funds.RechargeThreadPool.executeTask(new Runnable() {
+                @Override
+                public void run() {
+                    incre(a);
+                    System.out.print(a);
+                }
+            });
+        }
+    }
+
+    private void incre(int i) {
+        i = i + 1;
     }
 }
