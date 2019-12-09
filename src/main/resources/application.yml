@@ -1,13 +1,13 @@
 spring:
   mvc:
-     view:
-       prefix: /WEB-INF/views/
-       suffix: .jsp
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
   datasource:
-     url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8
-     username: root
-     password: 123456
-     driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
   application:
     name: rabbitmq-hello
   rabbitmq:
@@ -17,8 +17,16 @@ spring:
     password: 123456
     publisher-confirms: true
     virtual-host: /
+  redis:
+    host: 134.175.96.21
+    port: 6379
+  logging:
+    config: classpath:logback-spring.xml
 mybatis:
   mapper-locations: classpath:**/mapping/*.xml
   type-aliases-package: com.example.springbootdemo.pojo
+
+
+
 
 

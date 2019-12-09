@@ -2,6 +2,8 @@ package com.example.springbootdemo;
 
 import com.example.springbootdemo.service.Receiver;
 import com.example.springbootdemo.service.Sender;
+import com.example.springbootdemo.utils.LatchTask;
+import com.example.springbootdemo.utils.RedisUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,13 @@ public class SpringbootdemoApplicationTests {
 
     @Autowired
     Receiver receiver;
+    @Autowired
+    RedisUtil redisUtil;
 
     @Test
     public void contextLoads() {
+        LatchTask latchTask=new LatchTask();
+        latchTask.testCountDownLatch();
     }
 
     @Test
@@ -41,6 +47,12 @@ public class SpringbootdemoApplicationTests {
                 }
             });
         }
+    }
+
+    @Test
+    public void mqTest33() {
+//        redisUtil.set("1", "12321");
+      Object o=  redisUtil.get("1");
     }
 
     private void incre(int i) {
