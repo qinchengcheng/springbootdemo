@@ -58,4 +58,10 @@ public class SpringbootdemoApplicationTests {
     private void incre(int i) {
         i = i + 1;
     }
+
+    @Test
+    public void mqTest355() {
+//        redisUtil.set("1", "12321");
+        Object o=  redisUtil.get("1");
+    }
 }

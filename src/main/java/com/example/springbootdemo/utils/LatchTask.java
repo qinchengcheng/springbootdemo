@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author qin
@@ -151,7 +152,9 @@ public class LatchTask {
 
     public static void main(String[] args) {
         LatchTask test = new LatchTask();
-        test.testCountDownLatch();
+//        test.testCountDownLatch();
+        test.testCyclicBarrier();
+        ReentrantLock reentrantLock=new ReentrantLock();
     }
 
     private void incre(int i) {
