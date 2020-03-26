@@ -26,7 +26,5 @@ mybatis:
   mapper-locations: classpath:**/mapping/*.xml
   type-aliases-package: com.example.springbootdemo.pojo
 
-
-
-
-
+server:
+  port: 8090
