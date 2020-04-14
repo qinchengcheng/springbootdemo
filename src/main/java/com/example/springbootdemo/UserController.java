@@ -4,6 +4,8 @@ import com.example.springbootdemo.mapper.UserMapper;
 import com.example.springbootdemo.pojo.User;
 import com.example.springbootdemo.utils.RedisUtil;
 import org.apache.ibatis.annotations.Param;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ public class UserController {
     UserMapper userMapper;
     @Autowired
     RedisTemplate<Object, Object> redisTemplate;
+    @Autowired
+    Redisson redisson;
     private int store = 50;
 
     @RequestMapping("/listUser")
@@ -35,7 +39,9 @@ public class UserController {
 //        }
         String key = "test";
         String uuid = UUID.randomUUID().toString();
+        RLock rLock=redisson.getLock(key);
         try {
+            rLock.lock(10,TimeUnit.SECONDS);
             boolean flag = redisTemplate.opsForValue().setIfAbsent(key, uuid, 10, TimeUnit.SECONDS);
             if (flag) {
                 if (store > 0) {
@@ -46,6 +52,7 @@ public class UserController {
                 }
             }
         } finally {
+            rLock.unlock();
             if (redisTemplate.opsForValue().get(key).equals(uuid)) {
                 redisTemplate.delete(key);
             }
