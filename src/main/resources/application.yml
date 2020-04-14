@@ -27,4 +27,4 @@ mybatis:
   type-aliases-package: com.example.springbootdemo.pojo
 
 server:
-  port: 8090
+  port: 8091

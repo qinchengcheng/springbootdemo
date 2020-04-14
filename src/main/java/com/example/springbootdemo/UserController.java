@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class UserController {
@@ -31,6 +33,23 @@ public class UserController {
 //        } else {
 //            System.out.println("库存不足!");
 //        }
+        String key = "test";
+        String uuid = UUID.randomUUID().toString();
+        try {
+            boolean flag = redisTemplate.opsForValue().setIfAbsent(key, uuid, 10, TimeUnit.SECONDS);
+            if (flag) {
+                if (store > 0) {
+                    store = store - 1;
+                    System.out.println("剩余" + store);
+                } else {
+                    System.out.println("库存不足!");
+                }
+            }
+        } finally {
+            if (redisTemplate.opsForValue().get(key).equals(uuid)) {
+                redisTemplate.delete(key);
+            }
+        }
         List<User> users = userMapper.selectAll();
         model.addAttribute("users", users);
         return "listUser";
@@ -73,7 +92,7 @@ public class UserController {
                     failCount++;
                 }
             }
-            throw new RuntimeException("现在创建的人太多了, 请稍等再试");
+            System.out.println("现在创建的人太多了, 请稍等再试");
         }
 
     }
