@@ -150,11 +150,15 @@ public class LatchTask {
         }
     }
 
+
+    //Condition
+    //Semaphore //控制并发线程数量，可重入
+
     public static void main(String[] args) {
         LatchTask test = new LatchTask();
 //        test.testCountDownLatch();
         test.testCyclicBarrier();
-        ReentrantLock reentrantLock=new ReentrantLock();
+//        ReentrantLock reentrantLock=new ReentrantLock();
     }
 
     private void incre(int i) {
